@@ -30,15 +30,16 @@
         <input type="submit" value="enviar">
     </form>
 </p>
-<!--<p>Actualizar Usuario
+<p>Actualizar Usuario
     <form action="update.php" method="post">
         <input type="text" name="name" placeholder="Nombre">
         <input type="text" name="email" placeholder="Email">
+        <input type="text" name="telefono" placeholder="Telefono">
         <input type="text" name="password" placeholder="Password Actual">
         <input type="text" name="nuevo_password" placeholder="Nuevo Password">
         <input type="text" name="id" placeholder="ID Users">
         <input type="submit" value="enviar">
     </form>
 </p>
---></body>
+</body>
 </html>

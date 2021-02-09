@@ -2,6 +2,7 @@
 require_once("consultas.php");
 $consultas = new Consultas();
 $name = null;
+$telefono = null;
 $email = null;
 $error = null;
 $password = null;
@@ -9,6 +10,8 @@ $data=array();
 
 $data['name'] = false;
 $data['email'] = false;
+$data['telefono'] = false;
+$data['error'] = false;
 
 
 if (!empty($_POST['name'])){
@@ -16,6 +19,13 @@ if (!empty($_POST['name'])){
     if ($update == "update"){
         $data['name'] = ucwords($_POST['name']);
         $name = true;
+    }
+}
+if (!empty($_POST['telefono'])){
+    $update = $consultas->update('two_factor_secret', $_POST['telefono'], $_POST['id']);
+    if ($update == "update"){
+        $data['telefono'] = $_POST['telefono'];
+        $telefono = true;
     }
 }
 if (!empty($_POST['email'])){
@@ -45,24 +55,26 @@ if (!empty($_POST['password']) && !empty($_POST['nuevo_password'])){
 }
 
 
-if ($name || $email || $password){
-    $data['error'] = false;
+if ($name || $email || $password || $telefono){
+    $data['success'] = true;
     $data['message'] = "Cambios Guardados Correctamente";
 }else{
 
     switch ($error){
 
         case "email":
-            $data['error'] = true;
+            $data['success'] = false;
+            $data['error'] = $error;
             $data['message'] = "El correo electronico ya ha sido registrado anteriormente.";
         break;
         case "password":
-            $data['error'] = true;
+            $data['success'] = false;
+            $data['error'] = $error;
             $data['message'] = "Password Incorrecto.";
         break;
 
         default:
-            $data['error'] = true;
+            $data['success'] = false;
             $data['message'] = "No se realizo ningun cambio.";
         break;
     }
